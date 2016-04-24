@@ -19,15 +19,36 @@ class Attribute:
 
 class RandomCharacter:
 	def __init__(self):
-		self.Gender = pick(gender)
-		self.Metatype = pick(metatype)
-		self.Age = pick(age)
-		self.Traits = []
-		for i in range (random.randint(1,5)):
-			self.Traits.append(pick(traits))
+		self.RandGender()
+		self.RandMetatype()
+		self.RandAge()
+		self.RandTraits()
+
 
 	def __str__(self):
 		return "{0}, {1}, {2} \n{3}".format(self.Gender, self.Metatype, self.Age, self.Traits)
+
+
+	def RandGender(self):
+		self.Gender = pick(gender)
+		return self.Gender
+
+
+	def RandMetatype(self):
+		self.Metatype = pick(metatype)
+		return self.Metatype
+
+
+	def RandAge(self):
+		self.Age = pick(age)
+		return self.Age
+
+
+	def RandTraits(self):
+		self.Traits = []
+		for i in range (random.randint(1,5)):
+			self.Traits.append(pick(traits))
+		return self.Traits
 
 gender = [
 	Attribute('Männlich', 50),
@@ -78,4 +99,4 @@ def pick(atr):
 	for a in atr:
 		n += a.Prob
 		if n >= r:
-			return a
+			return a.Name
