@@ -3,7 +3,7 @@
 from chargen import chargen
 
 import kivy
-kivy.require('1.9.1')
+kivy.require('1.9.0')
 
 from kivy.app import App
 from kivy.core.window import Window
