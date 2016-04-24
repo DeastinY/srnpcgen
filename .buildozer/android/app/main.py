@@ -15,7 +15,9 @@ class SRNPCGen(App):
         self.Char = chargen.RandomCharacter()
 
     def on_motion(self, etype, motionevent):
-        print(motionevent)
+        pass
+        # Maybe there is a way to react to shaking here.
+        #print(motionevent)
 
     Window.bind(on_motion=on_motion)
 

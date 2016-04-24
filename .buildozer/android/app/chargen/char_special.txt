@@ -1,0 +1,100 @@
+Szene : Metal
+Szene : Punk
+Szene : Hip Hop
+Szene : Ganger
+Szene : Beauty
+Szene : Hipster
+Szene : Gamer
+Szene : Skater
+Szene : Techno
+Szene : Hippie
+Szene : Gothic
+Szene : Penner
+zucken
+schielend
+Immer an den Haaren spielen
+bunt (Kleidung Haare etc)
+dunkel (Kleidung Haare etc)
+hell (Kleidung Haare etc)
+elegant
+ranzig
+runtergekommen
+fertig
+behaart
+alkoholisiert
+unter Drogen
+Blickfang (positiv)
+Blickfang (negativ)
+Blickfang (verwirrend)
+kalt
+warm
+leuchtende Augen
+Augenringe
+Mähne
+Dreads
+große Ohren
+kleine Ohren
+große Augen
+kleine Augen
+große Nase
+kleine Nase
+großer Mund
+kleiner Mund
+dick
+dünn
+schlaksig
+plump
+groß
+klein
+zierlich
+kräftig
+sportlich
+unsportlich
+gedrungen
+Doppelkinn
+Tattoo(s)/Pircing(s)
+modebewusst
+offensichtlich vercybert
+ansprechend
+abstoßend
+nervös
+hecktisch
+ruhig
+bedacht
+gestikulierend
+hyperaktiv
+teilnahmslos
+artikulier-Genie
+artikulier-Niete
+immer in Bewegung
+blass
+gerötet
+krank (optisch)
+freundliche Ausstrahlung
+böse Ausstrahlung
+hübsch
+hässlich
+narbe(n)
+kante
+sommersproßen
+schick gekleidet
+unpassend gekleidet
+offensichtliches Hobby
+reich (optisch)
+arm (optisch)
+offensichtlich Runner
+Hackennase
+Narzist
+Glatze
+Poser
+vertrauenserweckend (optisch)
+nicht vertrauenserweckend (optisch)
+überemotional
+düster
+besondere Zähne
+besondere Augen
+besondere Haut
+besondere Haare
+komisch
+verschmitzt
+langsam
