@@ -65,7 +65,8 @@ age = [
 	]
 
 traits = []
-with open("char_traits.json","r+") as f:
+dir = os.path.dirname(os.path.realpath(__file__))
+with open(os.path.join(dir,"char_traits.json"),"r+") as f:
 	lines = f.readlines()
 	for l in lines:
 		traits.append(Attribute(l.replace('\n',''), 1))
@@ -78,5 +79,3 @@ def pick(atr):
 		n += a.Prob
 		if n >= r:
 			return a
-
-print (RandomCharacter())
