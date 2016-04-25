@@ -27,6 +27,7 @@ class SRNPCGen(App):
     def __init__(self):
         super(SRNPCGen, self).__init__()
         self.Char = chargen.RandomCharacter()
+	accelerometer.enable()
         Clock.schedule_interval(self.get_acceleration, 1/20.)
 
     def get_acceleration(self, dt):

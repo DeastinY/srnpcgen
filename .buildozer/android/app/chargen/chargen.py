@@ -62,10 +62,12 @@ class RandomCharacter:
 
 	def RandName(self):
 		name = ""
-		if self.Gender=="Maennlich":
+		if self.Gender=="Männlich":
 			name = pick(names_male)
-		else:
+		elif self.Gender=="Weiblich":
 			name = pick(names_female)
+		else:
+			name = "Error"
 		street = pick(names_street)
 		family = pick(names_family)
 		self.Name = "{0} \"{1}\" {2} ".format(name,street,family)
@@ -77,6 +79,8 @@ def load(file):
 	with open(os.path.join(dir,file),"r") as f:
 		lines = f.readlines()
 		for l in lines:
+			for r in ['\n','0','1','2','3','4','5','6','7','8','9','(',')']:
+				l = l.replace(r,'')
 			ret.append(Attribute(l.replace('\n',''), 1))
 	return ret
 
@@ -127,6 +131,6 @@ metatype = [
 	]
 age = [
 	Attribute('Jung', 30),
-	Attribute('Normal', 50),
+	Attribute('Erwachsen', 50),
 	Attribute('Alt', 20)
 	]

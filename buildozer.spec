@@ -56,7 +56,7 @@ fullscreen = 1
 #
 
 # (list) Permissions
-#android.permissions = INTERNET
+android.permissions = android.hardware.sensor.accelerometer
 
 # (int) Android API to use
 #android.api = 14
