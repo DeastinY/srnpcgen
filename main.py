@@ -1,12 +1,14 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 from chargen import chargen
+from plyer import accelerometer
 
 import kivy
 kivy.require('1.9.0')
 
 from kivy.app import App
 from kivy.core.window import Window
+from kivy.clock import Clock
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 
@@ -25,13 +27,15 @@ class SRNPCGen(App):
     def __init__(self):
         super(SRNPCGen, self).__init__()
         self.Char = chargen.RandomCharacter()
+        Clock.schedule_interval(self.get_acceleration, 1/20.)
 
-    def on_motion(self, etype, motionevent):
-        pass
-        # Maybe there is a way to react to shaking here.
-        #print(motionevent)
-
-    Window.bind(on_motion=on_motion)
+    def get_acceleration(self, dt):
+        try:
+            val = accelerometer.acceleration[:3]
+            if not val == (None,None,None):
+                print(val)
+        except Exception:
+            print("Accelerometer not available")
 
     class AttrButton(Button):
         pass

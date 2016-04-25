@@ -29,11 +29,11 @@ source.include_exts =
 #version.filename = %(source.dir)s/main.py
 
 # (str) Application versioning (method 2)
-version = 1.0.1
+version = 1.0.4
 
 # (list) Application requirements
 # comma seperated e.g. requirements = sqlite3,kivy
-requirements = kivy
+requirements = kivy, plyer
 
 # (list) Garden requirements
 #garden_requirements =
