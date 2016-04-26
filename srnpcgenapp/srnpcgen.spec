@@ -5,7 +5,7 @@ from plyer import accelerometer
 block_cipher = None
 
 
-a = Analysis(['..\\main.py'],
+a = Analysis(['..\\Application\\main.py'],
              pathex=['D:\\git\\srnpcgen\\srnpcgenapp'],
              binaries=None,
              datas=None,
@@ -26,7 +26,7 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=True )
-coll = COLLECT(exe, Tree('D:\\git\\srnpcgen\\'),
+coll = COLLECT(exe, Tree('D:\\git\\srnpcgen\\Application\\'),
                a.binaries,
                a.zipfiles,
                a.datas,
