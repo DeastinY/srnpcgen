@@ -1,0 +1,43 @@
+#!/usr/bin/python
+# -*- coding: latin-1 -*-
+#:kivy 1.9.0
+
+<AttrButton@Button>:
+    font_size: '21sp'
+    text_size: self.size
+    halign: 'center'
+    valign: 'middle'
+
+<RandChar>:
+    canvas:
+        Color:
+            rgba: 1, .3, .9, .5
+    AttrButton:
+        id: b_name
+        text: root.Name
+        on_press: root.RandName()
+    AttrButton:
+        id: b_gender
+        text: root.Gender
+        on_press: root.RandGender()
+    AttrButton:
+        id: b_age
+        text: root.Age
+        on_press: root.RandAge()
+    AttrButton:
+        id: b_metatype
+        text: root.Metatype
+        on_press: root.RandMetatype()
+    AttrButton:
+        id: b_trait
+        text: root.Traits
+        on_press: root.RandTraits()
+    AttrButton:
+        id: b_special
+        text: root.Special
+        on_press: root.RandSpecial()
+    AttrButton:
+        color: 0,1,0,1
+        id: b_all
+        text: "Get Lucky !"
+        on_press: root.RandAll()

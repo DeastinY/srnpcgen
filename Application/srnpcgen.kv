@@ -1,51 +1,8 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #:kivy 1.9.0
-
-<AttrButton>:
-    font_size: '21sp'
-    text_size: self.size
-    halign: 'center'
-    valign: 'middle'
-
-<AttrWidget>:
-    cols: 1
-    padding: 10
-    spacing: 10
-    canvas:
-        Color:
-            rgba: 1, .3, .9, .5
-    AttrButton:
-        id: b_name
-        text: str(app.Char.Name)
-        on_press: self.text=str(app.Char.RandName())
-    AttrButton:
-        id: b_gender
-        text: str(app.Char.Gender)
-        on_press: self.text=app.Char.RandGender()
-    AttrButton:
-        id: b_age
-        text: str(app.Char.Age)
-        on_press: self.text=app.Char.RandAge()
-    AttrButton:
-        id: b_metatype
-        text: str(app.Char.Metatype)
-        on_press: self.text=app.Char.RandMetatype()
-    AttrButton:
-        id: b_trait
-        text: str(app.Char.Traits)
-        on_press: self.text=str(app.Char.RandTraits())
-    AttrButton:
-        id: b_special
-        text: str(app.Char.Special)
-        on_press: self.text=str(app.Char.RandSpecial())
-    AttrButton:
-        color: 0,1,0,1
-        id: b_all
-        text: "Get Lucky !"
-        on_press: root.UpdateAll()
+#:import RandChar chargen.randchar.RandChar
 
 GridLayout:
     cols: 1
-    rows: 1
-    AttrWidget
+    RandChar:

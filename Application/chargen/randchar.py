@@ -3,10 +3,17 @@
 
 import collections
 import kivy
+from kivy.properties import StringProperty
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
+from kivy.lang import Builder
 import random
 import os
 
-class Attribute:
+curdir = os.path.dirname(os.path.realpath(__file__))
+
+class Attribute():
 	def __init__(self,name,prob):
 		self.Name = name
 		self.Prob = prob
@@ -17,9 +24,22 @@ class Attribute:
 	def __repr__(self):
 		return self.__str__()
 
-class RandomCharacter:
-	def __init__(self):
+class RandChar(GridLayout):
+	Gender = StringProperty()
+	Metatype = StringProperty()
+	Age = StringProperty()
+	Traits = StringProperty()
+	Special = StringProperty()
+	Name = StringProperty()
+
+	def __init__(self, **kwargs):
+		super(RandChar, self).__init__(**kwargs)
+		self.cols=1
+		self.rows=7
+		self.padding=10
+		self.spacing=5
 		self.RandAll()
+		Builder.load_file(os.path.join(curdir, "randchar.kv"))
 
 	def __str__(self):
 		return "{0}, {1}, {2} \n{3}".format(self.Gender, self.Metatype, self.Age, self.Traits)
@@ -33,32 +53,20 @@ class RandomCharacter:
 		self.RandName()
 
 	def RandGender(self):
-		self.Gender = pick(gender)
-		return self.Gender
-
+		self.Gender=pick(gender)
 
 	def RandMetatype(self):
-		self.Metatype = pick(metatype)
-		return self.Metatype
-
+		self.Metatype=pick(metatype)
 
 	def RandAge(self):
-		self.Age = pick(age)
-		return self.Age
-
+		self.Age=pick(age)
 
 	def RandTraits(self):
-		traits = []
-		for i in range (random.randint(1,5)):
-			traits.append(pick(trait))
+		traits = [pick(trait) for i in range(random.randint(1,5))]
 		self.Traits=", ".join(traits)
-		return self.Traits
-
 
 	def RandSpecial(self):
-		self.Special = pick(special)
-		return self.Special
-
+		self.Special=pick(special)
 
 	def RandName(self):
 		name = ""
@@ -70,13 +78,11 @@ class RandomCharacter:
 			name = "Error"
 		street = pick(names_street)
 		family = pick(names_family)
-		self.Name = "{0} \"{1}\" {2} ".format(name,street,family)
-		return self.Name
+		self.Name= "{0} \"{1}\" {2} ".format(name,street,family)
 
 def load(file):
 	ret = []
-	dir = os.path.dirname(os.path.realpath(__file__))
-	with open(os.path.join(dir,file),"r") as f:
+	with open(os.path.join(curdir,file),"r") as f:
 		lines = f.readlines()
 		for l in lines:
 			for r in ['\n','0','1','2','3','4','5','6','7','8','9','(',')']:
