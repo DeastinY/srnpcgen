@@ -12,6 +12,7 @@ import random
 import os
 
 curdir = os.path.dirname(os.path.realpath(__file__))
+Builder.load_file(os.path.join(curdir, "randchar.kv"))
 
 class Attribute():
 	def __init__(self,name,prob):
@@ -33,7 +34,6 @@ class RandChar(GridLayout):
 	Name = StringProperty()
 
 	def __init__(self, **kwargs):
-		Builder.load_file(os.path.join(curdir, "randchar.kv"))
 		super(RandChar, self).__init__(**kwargs)
 		self.cols=1
 		self.rows=7

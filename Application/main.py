@@ -24,19 +24,38 @@ class SRNPCGen(App):
         self.initialize_accelerometer()
 
     def build(self):
-        navigationdrawer = NavigationDrawer()
-        navigationdrawer.anim_type = 'slide_above_anim'
+        self.navigationdrawer = NavigationDrawer()
+        self.side_panel = GridLayout(cols=1,rows=3)
+        self.main_panel = GridLayout(cols=1,rows=2, padding=[0,10,0,0])
+        m = self.main_panel
+        nav = self.navigationdrawer
+        s = self.side_panel
 
-        side_panel = BoxLayout(orientation='vertical')
-        side_panel.add_widget(Label(text='Some cool text'))
-        side_panel.add_widget(Button(text='A button'))
-        side_panel.add_widget(Button(text='Another button'))
-        navigationdrawer.add_widget(side_panel)
-        navigationdrawer.add_widget(RandChar())
+        nav.anim_type = 'slide_above_anim'
 
-        navigationdrawer.toggle_state()
+        s.add_widget(Button(text='Generate', height=70, size_hint_y=None))
+        s.add_widget(Button(text='Database', height=70, size_hint_y=None))
+        text = Label(text='Hier würde jetzt cooler text stehen, wenn mir denn was einfallen würde. \
+                     Oder ein Bild, oder so. kA. Wenn ihr ideen habt, nur raus damit :D ')
+        text.text_size=(text.width,None)
+        text.valign='middle'
+        text.halign='center'
+        s.add_widget(text)
 
-        return navigationdrawer
+        top_bar = GridLayout(cols=2, rows=1, height=50, size_hint_y=None, padding=[10,0,10,0])
+        top_bar.add_widget(Button(text="Menu", on_press=self.toggle_drawer, width=50, size_hint_x=None))
+        top_bar.add_widget(Label(text = "Roll Your NPC", font_size=30, italic=True))
+
+        m.add_widget(top_bar)
+        m.add_widget(RandChar())
+        # First : Side, Second : Main
+        nav.add_widget(s)
+        nav.add_widget(m)
+
+        return nav
+
+    def toggle_drawer(self, sender):
+        self.navigationdrawer.toggle_state()
 
 
     def initialize_accelerometer(self):
