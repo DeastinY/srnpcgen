@@ -18,13 +18,14 @@ class SRNPCGen(App):
         self.initialize_accelerometer()
 
     def initialize_accelerometer(self):
-        try:
-            accelerometer.enable()
-        except NotImplementedError:
-            self.has_accelerometer = False
-        else:
-            self.has_accelerometer = True
-            Clock.schedule_interval(self.get_acceleration, 1/20.)
+            if accelerometer.enable():
+                print("Accelerometer activated")
+                self.has_accelerometer = True
+                Clock.schedule_interval(self.get_acceleration, 1/20.)
+            else:
+                print("Accelerometer not available")
+                self.has_accelerometer = False
+
 
     def on_pause(self):
         Clock.unschedule(self.get_acceleration)
@@ -38,12 +39,13 @@ class SRNPCGen(App):
 
     def get_acceleration(self, dt):
         if self.has_accelerometer:
+            print("adornes")
             try:
                 val = accelerometer.acceleration[:3]
                 if not val == (None,None,None):
                     print(val)
             except Exception:
-                print("Accelerometer not available")
+                pass
 
 if __name__ == '__main__':
     SRNPCGen().run()
