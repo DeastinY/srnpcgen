@@ -33,13 +33,13 @@ class RandChar(GridLayout):
 	Name = StringProperty()
 
 	def __init__(self, **kwargs):
+		Builder.load_file(os.path.join(curdir, "randchar.kv"))
 		super(RandChar, self).__init__(**kwargs)
 		self.cols=1
 		self.rows=7
 		self.padding=10
 		self.spacing=5
 		self.RandAll()
-		Builder.load_file(os.path.join(curdir, "randchar.kv"))
 
 	def __str__(self):
 		return "{0}, {1}, {2} \n{3}".format(self.Gender, self.Metatype, self.Age, self.Traits)
