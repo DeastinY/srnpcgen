@@ -1,0 +1,52 @@
+#!/usr/bin/python
+# -*- coding: latin-1 -*-
+#:kivy 1.9.0
+#:import NavigationDrawer kivy.garden.navigationdrawer
+#:import RandChar chargen.randchar
+
+<MenuButton@Button>:
+    height: 70
+    size_hint_y: None
+    font_size: 15
+    color: [1,1,1,1]
+    on_press: app.menu_btn_pressed();self.color=[0,1,0,1]; self.font_size=20
+
+<CustomNavigationDrawer>:
+    id: nav
+    anim_type: 'slide_above_anim'
+    GridLayout:
+        cols: 1
+        rows: 3
+        MenuButton:
+            id: btn_generate
+            text: "Generate"
+        MenuButton:
+            id: btn_database
+            text: "Database"
+        Label:
+            text: "Hier würde jetzt cooler text stehen, wenn mir denn was einfallen würde. Oder ein Bild, oder so. kA. Wenn ihr ideen habt, nur raus damit :D bis dahin gibt es hier Grüße an Yasmina, Erik, Wulf, Benni, Michael, Lukas und Olf oder so. Hoffe ich hab keinen vergessen *grins"
+            text_size: self.size
+            font_size: 25
+            valign: 'top'
+            halign: 'left'
+            padding: (5,5)
+    GridLayout:
+        id: main
+        cols: 1
+        rows: 2
+        padding: [0,10,0,0]
+        GridLayout:
+            cols: 2
+            rows: 1
+            height: 50
+            size_hint_y: None
+            padding: [10,0,10,0]
+            Button:
+                text: "Menu"
+                on_press: nav.toggle_state()
+                width: 50
+                size_hint_x: None
+            Label:
+                text: "Roll your NPC"
+                font_size: 30
+                italic: True
