@@ -29,7 +29,7 @@ class CustomNavigationDrawer(NavigationDrawer):
     pass
 
 class CharacterDatabase(ScrollView):
-    def __init__(self, callback):
+    def __init__(self, callback = None):
         super(CharacterDatabase,self).__init__()
         self.callback = callback
         layout = GridLayout(cols=1, height=70, font_size=15, spacing=10, padding=10, size_hint_y=None)
@@ -64,45 +64,48 @@ class SRNPCGen(App):
         self.main = None
 
     def initialize_accelerometer(self):
-            if accelerometer.enable():
-                print("Accelerometer activated")
-                self.has_accelerometer = True
-                Clock.schedule_interval(self.get_acceleration, 1/20.)
-            else:
-                print("Accelerometer not available")
-                self.has_accelerometer = False
+        if accelerometer.enable():
+            print("Accelerometer activated")
+            self.has_accelerometer = True
+            Clock.schedule_interval(self.get_acceleration, 1/20.)
+        else:
+            print("Accelerometer not available")
+            self.has_accelerometer = False
 
     def build(self):
         self.nav = CustomNavigationDrawer()
-        self.menu_btn_pressed(toggle=False)
+        self.b_gen = self.nav.ids.btn_generate
+        self.b_db = self.nav.ids.btn_database
+        self.open_generate(toggle=False)
         return self.nav
-
-    def menu_btn_pressed(self, toggle=True, char=None):
-        b_gen = self.nav.ids.btn_generate
-        b_db = self.nav.ids.btn_database
-        for b in [b_gen, b_db]:
-            b.color = [1,1,1,1]
-            b.font_size = 15
-        if type(self.main) is RandChar:
-            self.open(CharacterDatabase(callback=self.show_char),b_db)
-            self.set_optbtn("Database")
-        else:
-            self.open(char or RandChar(),b_gen)
-            self.set_optbtn("RandChar")
-        if toggle:
-            self.nav.toggle_state()
 
     def set_optbtn(self, tag):
         b_opt = self.nav.ids.btn_option
-        if tag == "RandChar":
+        if tag == "Generator":
             b_opt.text = "Save"
             b_opt.on_press = self.save
-        else:
+        elif tag ==  "Database":
             b_opt.text = "Export"
             b_opt.on_press = self.export
 
+    def open_database(self, toggle=True):
+        self.highlight_btn(self.b_db)
+        if not type(self.main) is CharacterDatabase:
+            self.open(CharacterDatabase(callback=self.show_char))
+            self.set_optbtn("Database")
+            if toggle:
+                self.nav.toggle_state()
+
+    def open_generate(self, toggle=True, char = None):
+        self.highlight_btn(self.b_gen)
+        if not type(self.main) is RandChar:
+            self.open(char or RandChar())
+            self.set_optbtn("Generator")
+            if toggle:
+                self.nav.toggle_state()
+
     def show_char(self, char):
-        self.menu_btn_pressed(toggle=False, char=char)
+        self.open_generate(toggle=False, char=char)
 
     def export(self):
         pass
@@ -120,18 +123,19 @@ class SRNPCGen(App):
         charfile = os.path.join(chardir, char.Name)
         os.remove(charfile)
 
-    def open(self, main, btn):
-        if not self.main is type(main):
-            self.highlight_btn(btn)
-            if self.main:
-                self.nav.ids.main.remove_widget(self.main)
-            self.main = main
-            self.nav.ids.main.add_widget(self.main)
+    def open(self, main):
+        if self.main:
+            self.nav.ids.main.remove_widget(self.main)
+        self.main = main
+        self.nav.ids.main.add_widget(self.main)
 
     def highlight_btn(self, btn):
+        for b in [self.b_gen, self.b_db]:
+            b.color = [1,1,1,1]
+            b.font_size = 15
         if btn:
-            btn.color=[0,1,0,1]
-            btn.font_size=20
+            btn.color = [0,1,0,1]
+            btn.font_size = 20
 
     def on_pause(self):
         Clock.unschedule(self.get_acceleration)
