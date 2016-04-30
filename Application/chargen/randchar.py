@@ -71,9 +71,9 @@ class RandChar(GridLayout):
 
 	def RandName(self):
 		name = ""
-		if self.Gender=="Männlich":
+		if self.Gender==u"Männlich":
 			name = pick(names_male)
-		elif self.Gender=="Weiblich":
+		elif self.Gender==u"Weiblich":
 			name = pick(names_female)
 		else:
 			name = "Error"
