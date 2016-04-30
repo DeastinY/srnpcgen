@@ -13,6 +13,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.uix.widget import Widget
 from kivy.metrics import dp
 from kivy.graphics import *
@@ -20,6 +21,9 @@ from kivy.graphics import *
 from kivy.garden.navigationdrawer import NavigationDrawer
 
 class CustomNavigationDrawer(NavigationDrawer):
+    pass
+
+class CharacterDatabase(ScrollView):
     pass
 
 class SRNPCGen(App):
@@ -39,24 +43,30 @@ class SRNPCGen(App):
 
     def build(self):
         self.nav = CustomNavigationDrawer()
-        self.open_generator()
+        self.open(RandChar(), self.nav.ids.btn_generate)
         return self.nav
 
     def menu_btn_pressed(self):
-        btns = [self.nav.ids.btn_generate,self.nav.ids.btn_database]
-        for b in btns:
+        b_gen = self.nav.ids.btn_generate
+        b_db = self.nav.ids.btn_database
+        for b in [b_gen, b_db]:
             b.color=[1,1,1,1]
             b.font_size=15
+        if type(self.main) is RandChar:
+            self.open(CharacterDatabase(),b_db)
+        else:
+            self.open(RandChar(),b_gen)
 
-    def open_generator(self):
-        if not self.main is RandChar:
-            self.highlight_btn(self.nav.ids.btn_generate)
+    def open(self, main, btn):
+        if not self.main is type(main):
+            self.highlight_btn(btn)
             if self.main:
                 self.nav.ids.main.remove_widget(self.main)
-            self.main = RandChar()
+            self.main = main
             self.nav.ids.main.add_widget(self.main)
 
     def highlight_btn(self, btn):
+        print("pressing button : "+str(btn))
         btn.color=[0,1,0,1]
         btn.font_size=20
 
