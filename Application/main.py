@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
+import os
+import json
 from plyer import accelerometer
 from chargen.randchar import RandChar
 
@@ -20,19 +22,39 @@ from kivy.graphics import *
 
 from kivy.garden.navigationdrawer import NavigationDrawer
 
+curdir = unicode(os.path.dirname(os.path.realpath(__file__)))
+chardir = unicode(os.path.join(curdir, u"chars"))
+
 class CustomNavigationDrawer(NavigationDrawer):
     pass
 
 class CharacterDatabase(ScrollView):
-    def __init__(self):
+    def __init__(self, callback):
         super(CharacterDatabase,self).__init__()
+        self.callback = callback
         layout = GridLayout(cols=1, height=70, font_size=15, spacing=10, padding=10, size_hint_y=None)
         # Make sure the height is such that there is something to scroll.
         layout.bind(minimum_height=layout.setter('height'))
-        for i in range(30):
-            btn = Button(text=str(i), size_hint_y=None, height=40)
+        self.chars = self.load_chars()
+        for c in self.chars:
+            btn = Button(text=c.Name, size_hint_y=None, height=40)
+            btn.bind(on_press=self.btn_pressed)
             layout.add_widget(btn)
         self.add_widget(layout)
+
+    def btn_pressed(self, btn):
+        for c in self.chars:
+            if c.Name == btn.text:
+                self.callback(c)
+
+    def load_chars(self):
+        chars = []
+        for infile in os.listdir(chardir):
+            with open(os.path.join(chardir,infile), "r") as char:
+                j = json.load(char)
+                c = RandChar.FromJSON(j)
+                chars.append(c)
+        return chars
 
 
 class SRNPCGen(App):
@@ -52,21 +74,23 @@ class SRNPCGen(App):
 
     def build(self):
         self.nav = CustomNavigationDrawer()
-        self.menu_btn_pressed()
+        self.menu_btn_pressed(toggle=False)
         return self.nav
 
-    def menu_btn_pressed(self):
+    def menu_btn_pressed(self, toggle=True, char=None):
         b_gen = self.nav.ids.btn_generate
         b_db = self.nav.ids.btn_database
         for b in [b_gen, b_db]:
-            b.color=[1,1,1,1]
-            b.font_size=15
+            b.color = [1,1,1,1]
+            b.font_size = 15
         if type(self.main) is RandChar:
-            self.open(CharacterDatabase(),b_db)
+            self.open(CharacterDatabase(callback=self.show_char),b_db)
             self.set_optbtn("Database")
         else:
-            self.open(RandChar(),b_gen)
+            self.open(char or RandChar(),b_gen)
             self.set_optbtn("RandChar")
+        if toggle:
+            self.nav.toggle_state()
 
     def set_optbtn(self, tag):
         b_opt = self.nav.ids.btn_option
@@ -74,14 +98,27 @@ class SRNPCGen(App):
             b_opt.text = "Save"
             b_opt.on_press = self.save
         else:
-            b_opt.text = "Delete"
-            b_opt.on_press = self.delete
+            b_opt.text = "Export"
+            b_opt.on_press = self.export
+
+    def show_char(self, char):
+        self.menu_btn_pressed(toggle=False, char=char)
+
+    def export(self):
+        pass
 
     def save(self):
-        pass
+        if not os.path.exists(chardir):
+            os.mkdir(chardir)
+        char = self.main
+        charfile = os.path.join(chardir, unicode(char.Name))
+        with open(charfile, "w") as outfile:
+            outfile.write(char.ToJSON())
 
     def delete(self):
-        pass
+        char = self.main
+        charfile = os.path.join(chardir, char.Name)
+        os.remove(charfile)
 
     def open(self, main, btn):
         if not self.main is type(main):
@@ -92,8 +129,9 @@ class SRNPCGen(App):
             self.nav.ids.main.add_widget(self.main)
 
     def highlight_btn(self, btn):
-        btn.color=[0,1,0,1]
-        btn.font_size=20
+        if btn:
+            btn.color=[0,1,0,1]
+            btn.font_size=20
 
     def on_pause(self):
         Clock.unschedule(self.get_acceleration)

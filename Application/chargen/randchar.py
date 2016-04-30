@@ -2,6 +2,7 @@
 # -*- coding: latin-1 -*-
 
 import collections
+import json
 import kivy
 from kivy.properties import StringProperty
 from kivy.uix.gridlayout import GridLayout
@@ -79,6 +80,28 @@ class RandChar(GridLayout):
 		street = pick(names_street)
 		family = pick(names_family)
 		self.Name= "{0} \"{1}\" {2} ".format(name,street,family)
+
+	def ToJSON(self):
+		j = {
+			"Name" : self.Name,
+			"Gender" : self.Gender,
+			"Metatype" : self.Metatype,
+			"Age" : self.Age,
+			"Traits" : self.Traits,
+			"Special" : self.Special
+		}
+		return json.dumps(j, indent=4)
+
+	@staticmethod
+	def FromJSON(j):
+		r = RandChar()
+		r.Name = j["Name"]
+		r.Gender = j["Gender"]
+		r.Metatype = j["Metatype"]
+		r.Age = j["Age"]
+		r.Traits = j["Traits"]
+		r.Special = j["Special"]
+		return r
 
 def load(file):
 	ret = []
