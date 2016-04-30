@@ -24,7 +24,8 @@ class CustomNavigationDrawer(NavigationDrawer):
     pass
 
 class CharacterDatabase(ScrollView):
-    pass
+    def build(self):
+        pass
 
 class SRNPCGen(App):
     def __init__(self):
