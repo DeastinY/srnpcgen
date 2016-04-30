@@ -25,13 +25,15 @@ class CustomNavigationDrawer(NavigationDrawer):
 
 class CharacterDatabase(ScrollView):
     def __init__(self):
-        layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
+        super(CharacterDatabase,self).__init__()
+        layout = GridLayout(cols=1, height=70, font_size=15, spacing=10, padding=10, size_hint_y=None)
         # Make sure the height is such that there is something to scroll.
         layout.bind(minimum_height=layout.setter('height'))
         for i in range(30):
             btn = Button(text=str(i), size_hint_y=None, height=40)
             layout.add_widget(btn)
         self.add_widget(layout)
+
 
 class SRNPCGen(App):
     def __init__(self):
@@ -50,7 +52,7 @@ class SRNPCGen(App):
 
     def build(self):
         self.nav = CustomNavigationDrawer()
-        self.open(RandChar(), self.nav.ids.btn_generate)
+        self.menu_btn_pressed()
         return self.nav
 
     def menu_btn_pressed(self):
@@ -61,8 +63,25 @@ class SRNPCGen(App):
             b.font_size=15
         if type(self.main) is RandChar:
             self.open(CharacterDatabase(),b_db)
+            self.set_optbtn("Database")
         else:
             self.open(RandChar(),b_gen)
+            self.set_optbtn("RandChar")
+
+    def set_optbtn(self, tag):
+        b_opt = self.nav.ids.btn_option
+        if tag == "RandChar":
+            b_opt.text = "Save"
+            b_opt.on_press = self.save
+        else:
+            b_opt.text = "Delete"
+            b_opt.on_press = self.delete
+
+    def save(self):
+        pass
+
+    def delete(self):
+        pass
 
     def open(self, main, btn):
         if not self.main is type(main):
