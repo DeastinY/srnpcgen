@@ -67,7 +67,6 @@ class SRNPCGen(App):
             self.nav.ids.main.add_widget(self.main)
 
     def highlight_btn(self, btn):
-        print("pressing button : "+str(btn))
         btn.color=[0,1,0,1]
         btn.font_size=20
 
@@ -83,7 +82,6 @@ class SRNPCGen(App):
 
     def get_acceleration(self, dt):
         if self.has_accelerometer:
-            print("adornes")
             try:
                 val = accelerometer.acceleration[:3]
                 if not val == (None,None,None):
