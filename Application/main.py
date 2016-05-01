@@ -49,12 +49,15 @@ class CharacterDatabase(ScrollView):
 
     def load_chars(self):
         chars = []
-        for infile in os.listdir(chardir):
-            with open(os.path.join(chardir,infile), "r") as char:
-                j = json.load(char)
-                c = RandChar.FromJSON(j)
-                chars.append(c)
-        return chars
+        try:
+            for infile in os.listdir(chardir):
+                with open(os.path.join(chardir,infile), "r") as char:
+                    j = json.load(char)
+                    c = RandChar.FromJSON(j)
+                    chars.append(c)
+            return chars
+        except:
+            return []
 
 
 class SRNPCGen(App):
@@ -111,17 +114,23 @@ class SRNPCGen(App):
         pass
 
     def save(self):
-        if not os.path.exists(chardir):
-            os.mkdir(chardir)
-        char = self.main
-        charfile = os.path.join(chardir, unicode(char.Name))
-        with open(charfile, "w") as outfile:
-            outfile.write(char.ToJSON())
+        try:
+            if not os.path.exists(chardir):
+                os.mkdir(chardir)
+            char = self.main
+            charfile = os.path.join(chardir, unicode(char.Name))
+            with open(charfile, "w") as outfile:
+                outfile.write(char.ToJSON())
+        except:
+            pass #Shitty hack for now
 
     def delete(self):
-        char = self.main
-        charfile = os.path.join(chardir, char.Name)
-        os.remove(charfile)
+        try:
+            char = self.main
+            charfile = os.path.join(chardir, char.Name)
+            os.remove(charfile)
+        except:
+            pass #Shitty hack for now
 
     def open(self, main):
         if self.main:
