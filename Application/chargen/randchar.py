@@ -77,6 +77,8 @@ class RandChar(GridLayout):
 			name = pick(names_female)
 		else:
 			name = "Error"
+		print(self.Gender)
+		print (name)
 		street = pick(names_street)
 		family = pick(names_family)
 		self.Name= "{0} \"{1}\" {2} ".format(name,street,family)
@@ -131,35 +133,35 @@ names_female = load('char_names_female.txt')
 trait = load('char_traits.txt')
 special = load('char_special.txt')
 gender = [
-	Attribute('Männlich', 50),
-	Attribute('Weiblich', 50)
+	Attribute(u'Männlich', 50),
+	Attribute(u'Weiblich', 50)
 	]
 metatype = [
-	Attribute('Mensch', 45),
-	Attribute('Natarki', 1),
-	Attribute('Zwerg', 6),
-	Attribute('Hanuman', 2),
-	Attribute('Menehune', 2),
-	Attribute('Gnom', 3),
-	Attribute('Kokogroko', 2),
-	Attribute('Ork', 5),
-	Attribute('Hobgoblin', 3),
-	Attribute('Oger', 2),
-	Attribute('Oni', 2),
-	Attribute('Satyr', 3),
-	Attribute('Elf', 7),
-	Attribute('Dryade', 3),
-	Attribute('Wakyambi', 1),
-	Attribute('Fotosynthese', 1),
-	Attribute('Nächtliche', 3),
-	Attribute('Troll', 5),
-	Attribute('Riese',1),
-	Attribute('Zyklop',1),
-	Attribute('Minotaure',1),
-	Attribute('Fomori',1)
+	Attribute(u'Mensch', 45),
+	Attribute(u'Natarki', 1),
+	Attribute(u'Zwerg', 6),
+	Attribute(u'Hanuman', 2),
+	Attribute(u'Menehune', 2),
+	Attribute(u'Gnom', 3),
+	Attribute(u'Kokogroko', 2),
+	Attribute(u'Ork', 5),
+	Attribute(u'Hobgoblin', 3),
+	Attribute(u'Oger', 2),
+	Attribute(u'Oni', 2),
+	Attribute(u'Satyr', 3),
+	Attribute(u'Elf', 7),
+	Attribute(u'Dryade', 3),
+	Attribute(u'Wakyambi', 1),
+	Attribute(u'Fotosynthese', 1),
+	Attribute(u'Nächtliche', 3),
+	Attribute(u'Troll', 5),
+	Attribute(u'Riese',1),
+	Attribute(u'Zyklop',1),
+	Attribute(u'Minotaure',1),
+	Attribute(u'Fomori',1)
 	]
 age = [
-	Attribute('Jung', 30),
-	Attribute('Erwachsen', 50),
-	Attribute('Alt', 20)
+	Attribute(u'Jung', 30),
+	Attribute(u'Erwachsen', 50),
+	Attribute(u'Alt', 20)
 	]
