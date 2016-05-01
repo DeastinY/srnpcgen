@@ -37,7 +37,7 @@ class CharacterDatabase(ScrollView):
         layout.bind(minimum_height=layout.setter('height'))
         self.chars = self.load_chars()
         for c in self.chars:
-            btn = Button(text=c.Name, size_hint_y=None, height=40)
+            btn = Button(text=c.Name, size_hint_y=None, height="40dp")
             btn.bind(on_press=self.btn_pressed)
             layout.add_widget(btn)
         self.add_widget(layout)
