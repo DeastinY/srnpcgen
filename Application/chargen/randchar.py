@@ -77,11 +77,9 @@ class RandChar(GridLayout):
 			name = pick(names_female)
 		else:
 			name = "Error"
-		print(self.Gender)
-		print (name)
 		street = pick(names_street)
 		family = pick(names_family)
-		self.Name= "{0} \"{1}\" {2} ".format(name,street,family)
+		self.Name= u"{0} \"{1}\" {2} ".format(name,street,family)
 
 	def ToJSON(self):
 		j = {
@@ -112,6 +110,7 @@ def load(file):
 		for l in lines:
 			for r in ['\n','0','1','2','3','4','5','6','7','8','9','(',')']:
 				l = l.replace(r,'')
+			l = l.decode("utf-8","replace")
 			ret.append(Attribute(l.replace('\n',''), 1))
 	return ret
 
