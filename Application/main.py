@@ -32,7 +32,7 @@ class CharacterDatabase(ScrollView):
     def __init__(self, callback = None):
         super(CharacterDatabase,self).__init__()
         self.callback = callback
-        layout = GridLayout(cols=1, height=70, font_size=15, spacing=10, padding=10, size_hint_y=None)
+        layout = GridLayout(cols=1, height="70dp", font_size="15sp", spacing=10, padding=10, size_hint_y=None)
         # Make sure the height is such that there is something to scroll.
         layout.bind(minimum_height=layout.setter('height'))
         self.chars = self.load_chars()
@@ -141,10 +141,10 @@ class SRNPCGen(App):
     def highlight_btn(self, btn):
         for b in [self.b_gen, self.b_db]:
             b.color = [1,1,1,1]
-            b.font_size = 15
+            b.font_size = "15sp"
         if btn:
             btn.color = [0,1,0,1]
-            btn.font_size = 20
+            btn.font_size = "20sp"
 
     def on_pause(self):
         Clock.unschedule(self.get_acceleration)
